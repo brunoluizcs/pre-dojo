@@ -1,2 +1,44 @@
-Coloque aqui suas instruções ou comentários que ache útil/relevantes para possamos ler 
-quando estivermos avaliando a sua solução
+SOLUÇÃO
+==============
+
+Utilizei expressão regular para trabalhar o input e formata-lo em grupos de informações, transformo esses grupos em objetos java e 
+aplico as regras de negócio solicitadas no exercicio, monto o ranking serializo em JSON e devolvo para VIEW.
+
+TECNOLOGIAS UTILIZADAS
+======================
+
+IDE: NETBEANS 8.2
+Para o back-end foi utilizado 
+-Java EE
+-JUnit 
+-VRaptor 4
+-Maven para gerenciar dependências 
+-Container Tomcat7
+
+Para o front-end foi utilizado
+-jQuery
+-jQuery-ui
+-Angularjs
+-Bootstrap
+
+OBSERVAÇÕES
+===========
+Optei por separar completamente o front-end do back-end, não utilizo páginas jsp para processar as view apenas html/javascript 
+trabalhando retornos em JSON.
+
+Realizei um deploy da solução no meu site pessoal e pode ser acessado pelo link http://bomcodigo.com:8080/pre-dojo/
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,42 @@
+body {
+  min-height: 2000px;
+  padding-top: 70px;
+}
+
+div.row-partida{
+	min-width:500px;
+}
+
+table.table thead{
+    background-color: #eceeef;
+}
+
+.main{
+	padding-left:50px;
+	padding-right: 50px;
+}
+table.table-main{
+    margin-top: 40px!important;
+}
+
+tr.row-ranking{
+    /*display : none;	*/
+}
+td.row-ranking{
+	background-color: #373a3c;
+}
+table.table-detail{
+	background-color: #aec4d8;
+}
+
+table.table-detail thead{
+	font-size:12px;
+	background-color: #5989b6;
+	color:#eceeef;
+}
+table.table-detail tbody{
+	font-size:11px;
+	background-color: #55595c;
+	color:#eceeef;
+}
+

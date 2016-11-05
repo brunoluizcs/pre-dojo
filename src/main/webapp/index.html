@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+    <meta name="author" content="">    
+
+    <title>Dojo Amil</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Estilo customizados -->
+    <link href="./css/style.css" rel="stylesheet">
+  </head>
+
+  <body>    
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Dojo Amil</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Partidas</a></li>                                   
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav><!--/ .navbar Fixa -->
+
+    <div class="container-fluid" ng-app="myApp" ng-controller="myCtrl">      
+        <div class="main">            
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="log">Log:</label>
+
+                        <textarea class="form-control" rows="10" id="log">23/04/2013 15:34:22 - New match 11348965 has started
+23/04/2013 15:36:04 - Roman killed Nick using M16
+23/04/2013 15:36:33 - <WORLD> killed Nick by DROWN
+23/04/2013 15:39:22 - Match 11348965 has ended</textarea>                       
+
+                    </div>                    
+                </div>
+            </div>  
+            <div class="row">
+                <div class="col-md-5 pull-right"><button ng-click="button_executar()" type="button" class="btn btn-primary">Executar</button></div>
+            </div>
+            <table id="tablemain" class="table table-striped table-main" style="width:70%;">
+                <thead>
+                    <tr>
+                        <th>
+                            Partida
+                        </th>
+                        <th>
+                            Inicio
+                        </th>				
+                        <th>
+                            Fim
+                        </th>						            				
+                        <th>#</th>                        
+                    </tr>   
+                </thead>
+                <tbody ng:repeat="p in mPartidas.partidas">
+                    <tr>
+                        <td><strong>{{p.id}}</strong></td>					
+                        <td><strong>{{p.inicio}}</strong></td>
+                        <td><strong>{{p.fim}}</strong></td>                        
+                        <td><a href="" ng-click="showDetail(p)"><img width="20" height="20" src="./css/img/arrow-down-01-128.png" title="Detalhes"/></a></td>
+                    </tr>
+                    <tr class="row-ranking">
+                        <td colspan="4" class="table-detail">
+                            <table id="{{p.index}}" class="table table-inverse table-detail">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>PLAYER</th>
+                                        <th>KILLS</th>
+                                        <th>DEATHS</th>						
+                                        <th>STREAK</th>						
+                                        <th>ARMA FAVORITA</th>
+                                        <th>AWARDS</th>														
+                                    </tr>
+                                </thead>
+                                <tbody ng:repeat="j in p.jogadores">
+                                    <td>{{j.colocacao}}</td>
+                                    <td>{{j.nome}}</td>
+                                    <td>{{j.kills}}</td>
+                                    <td>{{j.deaths}}</td>
+                                    <td>{{j.streak}}</td>                                                                        
+                                    <td>{{j.armaFavorita}}</td> 
+                                    <td>
+                                        <img title="Terminou a partida sem morrer !" ng-if="j.awards.iAmImortal" src="./css/img/multikill.png" width="20" height="20"/> 
+                                        <img title="Matou 5 em menos de 1 minuto !" ng-if="j.awards.axeMurderer" src="./css/img/fastkill.png" width="30" height="25"/>                                        
+                                    </td>                                    
+                                </tbody>
+                            </table>						
+                        </td>
+                    </tr>
+                </tbody>
+            </table>					
+        </div>
+    </div> <!-- /container-fluid -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Colocado no final para as páginas carregarem mais rapidamente -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>  
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+	
+    <!-- Scripts Customizados -->
+    <script src="./js/custom.js"></script>       
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope, $http) {      
+            
+            $scope.executar = function(){
+                $http({
+                    method:'POST',
+                    url:'/pre-dojo/partida',
+                    headers:{'Content-type': 'application/json','charset':'utf-8'},
+                    data:JSON.stringify({input : {log :$("#log").val()} })
+                }).then(function(response){
+                    $scope.mPartidas = response.data;                    
+
+                });                 
+            };     
+            $scope.button_executar = function(){
+                $scope.executar();
+                $(document.body).animate({
+                    'scrollTop':   $('#tablemain').offset().top - 50
+                }, 500);                                    
+            };
+            $scope.executar();                      
+            
+            $scope.showDetail = function(p){
+                details(p.index);
+            };          
+            
+        });
+    </script>     
+  </body>
+</html>
