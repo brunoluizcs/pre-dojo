@@ -1,12 +1,17 @@
 SOLUÇÃO
 ==============
-
 Utilizei expressão regular para trabalhar o input e formata-lo em grupos de informações, transformo esses grupos em objetos java e 
-aplico as regras de negócio solicitadas no exercicio, monto o ranking serializo em JSON e devolvo para VIEW.
+aplico as regras de negócio solicitadas no exercicio, monto o ranking serializo em JSON e devolvo para a view.
+
+-Foi montado o ranking de cada partida com a quantidade de assassinatos e a quantidade de mortes sofridas por cada jogador;
+-Os asassinatos realizados pelo player <WORLD> foram desconsiderados mas contam para o jogador que foi morto
+-As armas utilizadas pelo jogador são listadas por ordem decrescente de quantidade de mortes descobrindo assim a preferida (Que mais matou)
+-É identificada a maior sequencia de assassinatos realizado por um jogador sem morrer
+-Jogadores que vencem a partida sem morrer recebem um award 
+-Jogadores que mataram 5 vezes em 1 minuto recebem um award
 
 TECNOLOGIAS UTILIZADAS
 ======================
-
 IDE: NETBEANS 8.2
 Para o back-end foi utilizado 
 -Java EE
